@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+</head>
+<body>
+    <button id="new-book">
+        New Book</button>
+    <form id="book-form">
+        <div><label for="author">Author: <input type="text" name="author" id="author" required></label></div>
+        <div><label for="title">Title: <input type="text" name="title" id="title"></label></div>
+        <div><label for="pages">Number of pages: <input type="text" name="pages" id="pages"></label></div>
+        <div><input type="radio" id="has-read" name="read" value="true">
+            <label for="Has read">Has read</label>
+
+            <input type="radio" id="has-not-read" name="read" value="false">
+            <label for="Has not read">Has not read</label>
+        
+        </div>
+        <input type="submit" value="Submit">
+
+    </form>
+    <div id="books"></div>
+
+
+    <script>
+        let myLibrary = [];
+        function Book(title, author, pages, read) {
+            this.title = title
+            this.author = author
+            this.pages = pages
+            this.read = read
+        }
+
+        Book.prototype.info = function() {
+                return this.read ? `${this.title} by ${this.author} ${this.pages} pages, has been read`: `${this.title} by ${this.author}, ${this.pages} pages, not read yet`
+            }
+
+        const aw = new Book('Alice\'s Adventures in Wonderland', 
+            'Lewis Caroll', 352, true)
+        const hg = new Book('The Hitchhiker\'s Guide to the Galaxy', 
+            'Douglas Adams', 254, true)
+        
+        addBookToLibrary(aw)
+        addBookToLibrary(hg)
+        
+        displayBooks()
+
+        
+
+        document.getElementById('new-book').addEventListener('click', showForm)
+        document.getElementById('book-form').addEventListener('submit', addBook)
+
+        
+
+        function addBookToLibrary(book) {
+            myLibrary.push(book)
+        }
+
+
+        function showForm() {
+            document.getElementById('book-form').style.display="block"
+        }
+
+        function addBook() {
+            console.log('book added')
+        }
+
+        function displayBooks() {
+            for (let i = 0; i < myLibrary.length; i++) {
+                 let bookDiv = document.createElement('div')
+                 let bookInfo = document.createElement('div')
+                 let bookButton = document.createElement('button')
+                 bookInfo.innerText = myLibrary[i].info()
+                 bookButton.data = i
+                 bookButton.innerText = 'Remove Book'
+                 bookDiv.appendChild(bookInfo)
+                 bookDiv.appendChild(bookButton)
+                 document.getElementById('books').appendChild(bookDiv)
+            }
+        }
+    </script>
+
+</body>
+</html>
