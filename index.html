@@ -21,7 +21,7 @@
             <label for="Has not read">Has not read</label>
         
         </div>
-        <input type="submit" value="Submit">
+        <input type="button" value="Submit" id="submit-button">
 
     </form>
     <div id="books"></div>
@@ -53,7 +53,7 @@
         
 
         document.getElementById('new-book').addEventListener('click', showForm)
-        document.getElementById('book-form').addEventListener('submit', addBook)
+        document.getElementById('submit-button').addEventListener('click', addBook)
         
         
 
@@ -66,8 +66,16 @@
             document.getElementById('book-form').style.display="block"
         }
 
-        function addBook() {
-            console.log('book added')
+        function addBook(e) {
+            let author = e.target.form[0].value
+            let title = e.target.form[1].value
+            let pages = e.target.form[2].value
+            let read = e.target.form[3].checked ? true : false
+            let newBook = new Book(title, author, pages, read)
+            myLibrary.push(newBook)
+
+            clearForm(e)
+            displayBooks()
         }
 
         function displayBooks() {
@@ -104,6 +112,15 @@
             let index = e.target.data
             myLibrary[index].read = myLibrary[index].read ? false: true
             displayBooks()
+        }
+
+        function clearForm(e) {
+            e.target.form[0].value = ''
+            e.target.form[1].value = ''
+            e.target.form[2].value = ''
+            e.target.form[3].checked = true
+            e.target.form[4].checked = false
+            document.getElementById('book-form').style.display="none"
         }
 
 
