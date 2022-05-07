@@ -37,7 +37,7 @@
         }
 
         Book.prototype.info = function() {
-                return this.read ? `${this.title} by ${this.author} ${this.pages} pages, has been read`: `${this.title} by ${this.author}, ${this.pages} pages, not read yet`
+                return this.read ? `${this.title} by ${this.author}, ${this.pages} pages, has been read`: `${this.title} by ${this.author}, ${this.pages} pages, not read yet`
             }
 
         const aw = new Book('Alice\'s Adventures in Wonderland', 
@@ -101,7 +101,9 @@
         }
 
         function changeStatus(e) {
-            console.log('status change')
+            let index = e.target.data
+            myLibrary[index].read = myLibrary[index].read ? false: true
+            displayBooks()
         }
 
 
