@@ -54,7 +54,7 @@
 
         document.getElementById('new-book').addEventListener('click', showForm)
         document.getElementById('book-form').addEventListener('submit', addBook)
-
+        
         
 
         function addBookToLibrary(book) {
@@ -71,6 +71,7 @@
         }
 
         function displayBooks() {
+            document.getElementById('books').innerHTML = ''
             for (let i = 0; i < myLibrary.length; i++) {
                  let bookDiv = document.createElement('div')
                  let bookInfo = document.createElement('div')
@@ -81,12 +82,29 @@
                  removeButton.innerText = 'Remove Book'
                  changeStatusButton.innerText = myLibrary[i].read ? 'Change to unread' : 'Change to read'
                  changeStatusButton.data = i
+
+                removeButton.addEventListener('click', removeBook)
+                changeStatusButton.addEventListener('click', changeStatus)
+
                  bookDiv.appendChild(bookInfo)
                  bookDiv.appendChild(removeButton)
                  bookDiv.appendChild(changeStatusButton)
                  document.getElementById('books').appendChild(bookDiv)
+
             }
         }
+
+        function removeBook(e) {
+            let index = e.target.data
+            myLibrary = (myLibrary.slice(0,index)).concat(myLibrary.slice(index+1))
+            displayBooks()
+        }
+
+        function changeStatus(e) {
+            console.log('status change')
+        }
+
+
     </script>
 
 </body>
