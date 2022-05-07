@@ -1,5 +1,6 @@
 body {
     background-color: #333;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 h1 {
@@ -12,8 +13,8 @@ h1 {
 
 .container {
     background-color: #FFF;
-    width: 500px;
-    padding: 80px 400px;
+    width: 600px;
+    padding: 80px 80px;
     margin: 0 auto;
     border-radius: 15px;
     display: flex;
@@ -33,7 +34,7 @@ h1 {
 }
 
 #book-form {
-    padding:30px;
+    padding:10px 30px 30px 30px;
     border: brown 3px solid;
     border-radius: 15px;
     width: 200px;
@@ -56,4 +57,49 @@ input[type='button'] {
     color:blanchedalmond;
     border: none;
     font-size: 14px;
+}
+
+.book{
+    border: brown 3px solid;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: rgb(212, 159, 159) 5px 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 220px;
+}
+
+#books {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.book >* {
+    margin-left: 15px;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#button-div {
+    display: flex;
+    gap: 3px;
+    justify-content: end;
+    align-content: center;
+    justify-self: end;
+    margin-top: 10px;
+}
+
+#button-div > button {
+    background-color: brown;
+    padding: 4px 7px;
+    font-weight: bold;
+    color:blanchedalmond;
+    border: none;
+    font-size: 12px;
+    border-radius: 15px;
 }

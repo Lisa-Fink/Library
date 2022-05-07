@@ -25,9 +25,12 @@
                 <div>
                 <input type="radio" id="has-not-read" name="read" value="false">
                 <label for="Has not read">Has not read</label>
-            
-            </div></div>
-            <div><input type="button" value="Add" id="add-button"></div>
+                </div>
+            </div>
+            <div>
+                <input type="button" value="Add" id="add-button">
+                <input type="button" value="Cancel" id="cancel-button">
+            </div>
         </form>
         <div id="books"></div>
     </div>
@@ -40,10 +43,6 @@
             this.pages = pages
             this.read = read
         }
-
-        Book.prototype.info = function() {
-                return this.read ? `${this.title} by ${this.author}, ${this.pages} pages, has been read`: `${this.title} by ${this.author}, ${this.pages} pages, not read yet`
-            }
 
         const aw = new Book('Alice\'s Adventures in Wonderland', 
             'Lewis Caroll', 352, true)
@@ -59,6 +58,7 @@
 
         document.getElementById('new-book').addEventListener('click', showForm)
         document.getElementById('add-button').addEventListener('click', addBook)
+        document.getElementById('cancel-button').addEventListener('click', clearForm)
         
         
 
@@ -87,21 +87,40 @@
             document.getElementById('books').innerHTML = ''
             for (let i = 0; i < myLibrary.length; i++) {
                  let bookDiv = document.createElement('div')
-                 let bookInfo = document.createElement('div')
+                 bookDiv.classList.add('book')
                  let removeButton = document.createElement('button')
                  let changeStatusButton = document.createElement('button')
-                 bookInfo.innerText = myLibrary[i].info()
+                // Adds book info
+                let infoDiv = document.createElement('div')
+                for (const property in myLibrary[i]) {
+                    let bookAttributeDiv = document.createElement('div')
+                    bookAttributeDiv.classList.add(property)
+                    let text = property == 'title' ? myLibrary[i][property] :
+                        property == 'author' ? `by ${myLibrary[i][property]}`:
+                        property == 'pages' ? `${myLibrary[i][property]} pgs` :
+                        myLibrary[i][property] ? 'Read' : 'Unread'
+                    bookAttributeDiv.innerText = text
+                    infoDiv.appendChild(bookAttributeDiv)
+                };
+
+                bookDiv.appendChild(infoDiv)
+
+                // buttons
                  removeButton.data = i
-                 removeButton.innerText = 'Remove Book'
-                 changeStatusButton.innerText = myLibrary[i].read ? 'Change to unread' : 'Change to read'
+                 removeButton.innerText = '-'
+                 changeStatusButton.innerText = myLibrary[i].read ? 'unread' : 'read'
                  changeStatusButton.data = i
 
+                const buttonDiv = document.createElement('div')
+                buttonDiv.id = 'button-div'
                 removeButton.addEventListener('click', removeBook)
                 changeStatusButton.addEventListener('click', changeStatus)
 
-                 bookDiv.appendChild(bookInfo)
-                 bookDiv.appendChild(removeButton)
-                 bookDiv.appendChild(changeStatusButton)
+                 buttonDiv.appendChild(changeStatusButton)
+                 buttonDiv.appendChild(removeButton)
+                 bookDiv.appendChild(buttonDiv)
+                 
+                
                  document.getElementById('books').appendChild(bookDiv)
 
             }
