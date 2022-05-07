@@ -74,12 +74,16 @@
             for (let i = 0; i < myLibrary.length; i++) {
                  let bookDiv = document.createElement('div')
                  let bookInfo = document.createElement('div')
-                 let bookButton = document.createElement('button')
+                 let removeButton = document.createElement('button')
+                 let changeStatusButton = document.createElement('button')
                  bookInfo.innerText = myLibrary[i].info()
-                 bookButton.data = i
-                 bookButton.innerText = 'Remove Book'
+                 removeButton.data = i
+                 removeButton.innerText = 'Remove Book'
+                 changeStatusButton.innerText = myLibrary[i].read ? 'Change to unread' : 'Change to read'
+                 changeStatusButton.data = i
                  bookDiv.appendChild(bookInfo)
-                 bookDiv.appendChild(bookButton)
+                 bookDiv.appendChild(removeButton)
+                 bookDiv.appendChild(changeStatusButton)
                  document.getElementById('books').appendChild(bookDiv)
             }
         }
