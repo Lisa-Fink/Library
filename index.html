@@ -8,24 +8,29 @@
     <title>Library</title>
 </head>
 <body>
-    <button id="new-book">
-        New Book</button>
-    <form id="book-form">
-        <div><label for="author">Author: <input type="text" name="author" id="author" required></label></div>
-        <div><label for="title">Title: <input type="text" name="title" id="title"></label></div>
-        <div><label for="pages">Number of pages: <input type="text" name="pages" id="pages"></label></div>
-        <div><input type="radio" id="has-read" name="read" value="true">
-            <label for="Has read">Has read</label>
-
-            <input type="radio" id="has-not-read" name="read" value="false">
-            <label for="Has not read">Has not read</label>
-        
-        </div>
-        <input type="button" value="Submit" id="submit-button">
-
-    </form>
-    <div id="books"></div>
-
+    <div class="container">
+        <h1>My Library</h1>
+        <button id="new-book">
+            Add a Book</button>
+        <form id="book-form">
+            <h2>New Book</h2>
+            <div><label for="author">Author: </label>
+                <input type="text" name="author" id="author" required></div>
+            <div><label for="title">Title: </label>
+                <input type="text" name="title" id="title"></div>
+            <div><label for="pages">Number of pages: </label>
+                <input type="text" name="pages" id="pages"></div>
+            <div><div><input type="radio" id="has-read" name="read" value="true">
+                <label for="Has read">Has read</label></div>
+                <div>
+                <input type="radio" id="has-not-read" name="read" value="false">
+                <label for="Has not read">Has not read</label>
+            
+            </div></div>
+            <div><input type="button" value="Add" id="add-button"></div>
+        </form>
+        <div id="books"></div>
+    </div>
 
     <script>
         let myLibrary = [];
@@ -53,7 +58,7 @@
         
 
         document.getElementById('new-book').addEventListener('click', showForm)
-        document.getElementById('submit-button').addEventListener('click', addBook)
+        document.getElementById('add-button').addEventListener('click', addBook)
         
         
 
