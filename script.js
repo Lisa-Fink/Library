@@ -1,5 +1,4 @@
-const Book = class MyBook{
-    static myLibrary = [];
+class Book {
 
     constructor(title, author, pages, read) {
         this.title = title;
@@ -7,18 +6,31 @@ const Book = class MyBook{
         this.pages = pages;
         this.read = read;      
     }
-    addBookToLibrary() {
-        Book.myLibrary.push(this)
+    
+}
+
+class Library {
+    constructor () {
+        this.booksArr = []
+    }
+
+    addBook(book) {
+        this.booksArr.push(book)
+    }
+
+    removeBook(index) {
+        this.booksArr = (this.booksArr.slice(0,index)).concat(this.booksArr.slice(index+1))
     }
 }
+const library = new Library()
 
 const aw = new Book('Alice\'s Adventures in Wonderland', 
     'Lewis Caroll', 352, true)
 const hg = new Book('The Hitchhiker\'s Guide to the Galaxy', 
     'Douglas Adams', 254, true)
 
-aw.addBookToLibrary()
-hg.addBookToLibrary()
+library.addBook(aw)
+library.addBook(hg)
 
 const display = (() => {
     showForm = () => {
@@ -27,20 +39,20 @@ const display = (() => {
 
     displayBooks = () => {
         document.getElementById('books').innerHTML = ''
-        for (let i = 0; i < Book.myLibrary.length; i++) {
+        for (let i = 0; i < library.booksArr.length; i++) {
                 let bookDiv = document.createElement('div')
                 bookDiv.classList.add('book')
                 let removeButton = document.createElement('button')
                 let changeStatusButton = document.createElement('button')
             // Adds book info
             let infoDiv = document.createElement('div')
-            for (const property in Book.myLibrary[i]) {
+            for (const property in library.booksArr[i]) {
                 let bookAttributeDiv = document.createElement('div')
                 bookAttributeDiv.classList.add(property)
-                let text = property == 'title' ? Book.myLibrary[i][property] :
-                    property == 'author' ? `by ${Book.myLibrary[i][property]}`:
-                    property == 'pages' ? `${Book.myLibrary[i][property]} pgs` :
-                    Book.myLibrary[i][property] ? 'Read' : 'Unread'
+                let text = property == 'title' ? library.booksArr[i][property] :
+                    property == 'author' ? `by ${library.booksArr[i][property]}`:
+                    property == 'pages' ? `${library.booksArr[i][property]} pgs` :
+                    library.booksArr[i][property] ? 'Read' : 'Unread'
                 bookAttributeDiv.innerText = text
                 infoDiv.appendChild(bookAttributeDiv)
             };
@@ -50,7 +62,7 @@ const display = (() => {
             // buttons
                 removeButton.data = i
                 removeButton.innerText = '-'
-                changeStatusButton.innerText = Book.myLibrary[i].read ? 'unread' : 'read'
+                changeStatusButton.innerText = library.booksArr[i].read ? 'unread' : 'read'
                 changeStatusButton.data = i
     
             const buttonDiv = document.createElement('div')
@@ -70,13 +82,13 @@ const display = (() => {
 
     removeBook = (e) => {
         let index = e.target.data
-        Book.myLibrary = (Book.myLibrary.slice(0,index)).concat(Book.myLibrary.slice(index+1))
+        library.removeBook(index) 
         display.displayBooks()
         }
 
     changeStatus = (e) => {
         let index = e.target.data
-        Book.myLibrary[index].read = Book.myLibrary[index].read ? false: true
+        library.booksArr[index].read = library.booksArr[index].read ? false: true
         displayBooks()
     }
 
