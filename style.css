@@ -85,7 +85,7 @@ input[type='button'] {
     font-size: 18px;
 }
 
-#button-div {
+.button-div {
     display: flex;
     gap: 3px;
     justify-content: end;
@@ -94,7 +94,7 @@ input[type='button'] {
     margin-top: 10px;
 }
 
-#button-div > button {
+.button-div > button {
     background-color: brown;
     padding: 4px 7px;
     font-weight: bold;
