@@ -127,7 +127,7 @@ const form = (() => {
     let pages = e.target.form[2].value;
     let read = e.target.form[3].checked ? true : false;
     let newBook = new Book(title, author, pages, read);
-    newBook.addBookToLibrary();
+    library.addBook(newBook)
 
     display.clearForm(e);
     display.renderBooks();
