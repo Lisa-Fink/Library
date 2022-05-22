@@ -70,7 +70,9 @@ const display = (() => {
           : property == 'author'
           ? `by ${library.booksArr[i][property]}`
           : property == 'pages'
-          ? `${library.booksArr[i][property]} pgs`
+          ? library.booksArr[i][property] > 1
+            ? `${library.booksArr[i][property]} pgs`
+            : '1 pg'
           : library.booksArr[i][property]
           ? 'Read'
           : 'Unread';
