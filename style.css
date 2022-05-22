@@ -103,3 +103,23 @@ input[type='button'] {
     font-size: 12px;
     border-radius: 15px;
 }
+input:invalid{
+    border-color: red;
+}
+input:focus {
+    outline: none;
+}
+.error {
+    width: 100%;
+    color: white;
+    background-color: brown;
+    border-radius: 0 0 5px 5px;
+    box-sizing: border-box;
+    display: block;
+}
+.active {
+    padding: 3px;
+}
+#book-form input {
+    margin-bottom: 3px;
+}
