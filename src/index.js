@@ -1,3 +1,21 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from 'firebase/app';
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: 'AIzaSyDR8W5zPHM1ymRIP8qFlGW_ktg3C3UFO1s',
+  authDomain: 'library-d6366.firebaseapp.com',
+  projectId: 'library-d6366',
+  storageBucket: 'library-d6366.appspot.com',
+  messagingSenderId: '305622640025',
+  appId: '1:305622640025:web:60ff763f6704e3d3addf08',
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
 class Book {
   constructor(title, author, pages, read) {
     this.title = title;
