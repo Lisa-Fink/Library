@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/Lisa-Fink/Library/issues"
   },
-  "homepage": "https://github.com/Lisa-Fink/Library#readme",
+  "homepage": "https://library-d6366.web.app/",
   "dependencies": {
     "firebase": "^9.8.4"
   }
