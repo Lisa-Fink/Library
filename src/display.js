@@ -1,4 +1,4 @@
-import { lib } from './index';
+import { changeBookFire, lib, deleteBookFire } from './index';
 
 const authorError = document.querySelector('#author + span.error');
 const titleError = document.querySelector('#title + span.error');
@@ -19,24 +19,27 @@ const createBookCard = (i) => {
 
 const getBookInfo = (i) => {
   let infoDiv = document.createElement('div');
-  for (const property in lib.booksArr[i]) {
+
+  const props = ['title', 'author', 'pages', 'read'];
+  for (let prop of props) {
     let bookAttributeDiv = document.createElement('div');
-    bookAttributeDiv.classList.add(property);
+    bookAttributeDiv.className = prop;
     let text =
-      property == 'title'
-        ? lib.booksArr[i][property]
-        : property == 'author'
-        ? `by ${lib.booksArr[i][property]}`
-        : property == 'pages'
-        ? lib.booksArr[i][property] > 1
-          ? `${lib.booksArr[i][property]} pgs`
+      prop == 'title'
+        ? lib.booksArr[i][prop]
+        : prop == 'author'
+        ? `by ${lib.booksArr[i][prop]}`
+        : prop == 'pages'
+        ? lib.booksArr[i][prop] > 1
+          ? `${lib.booksArr[i][prop]} pgs`
           : '1 pg'
-        : lib.booksArr[i][property]
+        : lib.booksArr[i][prop]
         ? 'Read'
         : 'Unread';
     bookAttributeDiv.innerText = text;
     infoDiv.appendChild(bookAttributeDiv);
   }
+
   return infoDiv;
 };
 
@@ -46,7 +49,9 @@ const createCardButtons = (i) => {
 
   removeButton.data = i;
   removeButton.innerText = '-';
-  changeStatusButton.innerText = lib.booksArr[i].read ? 'unread' : 'read';
+  changeStatusButton.innerText = lib.booksArr[i].read
+    ? 'set as unread'
+    : 'set as read';
   changeStatusButton.data = i;
 
   const buttonDiv = document.createElement('div');
@@ -71,13 +76,18 @@ const renderBooks = () => {
 
 const removeBook = (e) => {
   let index = e.target.data;
+  const id = lib.booksArr[index].id;
   lib.removeBook(index);
+  deleteBookFire(id);
   renderBooks();
 };
 
 const changeStatus = (e) => {
   let index = e.target.data;
   lib.toggleRead(index);
+  const id = lib.booksArr[index].id;
+  const readStatus = lib.booksArr[index].read;
+  changeBookFire(readStatus, id);
   renderBooks();
 };
 
@@ -138,4 +148,4 @@ const showError = (type) => {
     }
   }
 };
-export { renderBooks, showForm, clearForm, showError };
+export { renderBooks, showForm, clearForm, showError, clearError };

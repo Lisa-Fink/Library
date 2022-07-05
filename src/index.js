@@ -7,6 +7,7 @@ import {
   addDoc,
   getFirestore,
   getDocs,
+  deleteDoc,
 } from 'firebase/firestore';
 
 import { renderBooks, showForm, clearForm, showError } from './display';
@@ -27,15 +28,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
-// class Book {
-//   constructor(title, author, pages, read) {
-//     this.title = title;
-//     this.author = author;
-//     this.pages = pages;
-//     this.read = read;
-//   }
-// }
 
 class Library {
   constructor() {
@@ -69,36 +61,44 @@ const getLibrary = async () => {
   console.log('after render');
 };
 
-const addBookFire = async (title, auth, pgs, rd) => {
+const addBookFire = async (book) => {
   try {
     const docRef = await addDoc(collection(db, 'library'), {
-      author: auth,
-      pages: pgs,
-      read: rd,
-      title: title,
+      ...book,
     });
     console.log('Document written with ID: ', docRef.id);
+    lib.addBook({
+      ...book,
+      id: docRef.id,
+    });
+    renderBooks();
   } catch (e) {
     console.log('error adding doc: ', e);
   }
 };
-// addBook("The Hitchhiker's Guide to the Galaxy", 'Douglas Adams', 254, true);
-// addBook("Alice's Adventures in Wonderland", 'Lewis Caroll', 352, true);
-// const aw = new Book(
-//   "Alice's Adventures in Wonderland",
-//   'Lewis Caroll',
-//   352,
-//   true
-// );
-// const hg = new Book(
-//   "The Hitchhiker's Guide to the Galaxy",
-//   'Douglas Adams',
-//   254,
-//   true
-// );
 
-// library.addBook(aw);
-// library.addBook(hg);
+const changeBookFire = async (rd, id) => {
+  try {
+    const docRef = await setDoc(
+      doc(db, 'library', id),
+      {
+        read: rd,
+      },
+      { merge: true }
+    );
+  } catch (e) {
+    console.log('error editing', e);
+  }
+};
+
+const deleteBookFire = async (id) => {
+  try {
+    const docRef = await deleteDoc(doc(db, 'library', id));
+  } catch (e) {
+    console.log('error deleting', e);
+  }
+};
+
 getLibrary();
 
-export { lib };
+export { lib, changeBookFire, deleteBookFire, addBookFire };

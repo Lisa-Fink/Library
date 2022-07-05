@@ -1,5 +1,11 @@
-import { renderBooks, showForm, clearForm, showError } from './display';
-import { lib } from './index';
+import {
+  renderBooks,
+  showForm,
+  clearForm,
+  showError,
+  clearError,
+} from './display';
+import { lib, addBookFire } from './index';
 
 const authorInput = document.getElementById('author');
 const titleInput = document.getElementById('title');
@@ -10,11 +16,9 @@ const addBook = (e) => {
   let title = e.target.form[1].value;
   let pages = e.target.form[2].value;
   let read = e.target.form[3].checked ? true : false;
-  let newBook = new Book(title, author, pages, read);
-  lib.addBook(newBook);
-
+  const book = { author: author, title: title, pages: pages, read: read };
+  addBookFire(book);
   clearForm(e);
-  renderBooks();
 };
 
 const submitBook = (e) => {
